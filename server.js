@@ -7,6 +7,17 @@ import { readFile } from 'fs/promises';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import 'dotenv/config';
 
+const allowedDomain = process.env.allowDomain; // replace with your domain
+
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (origin === allowedDomain) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    }
+};
 
 
 const app = express();
@@ -32,7 +43,7 @@ admin.initializeApp({
 });
 
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors(corsOptions));
 
 // Database configuration
 const dbConfig = {
