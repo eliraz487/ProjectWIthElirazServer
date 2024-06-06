@@ -7,17 +7,6 @@ import { readFile } from 'fs/promises';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import 'dotenv/config';
 
-const allowedDomain = 'http://example.com'; // replace with your domain
-
-const corsOptions = {
-    origin: function (origin, callback) {
-        if (origin === allowedDomain) {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    }
-};
 
 
 const app = express();
